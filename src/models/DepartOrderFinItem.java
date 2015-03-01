@@ -1,0 +1,1 @@
+package models;import com.jfinal.plugin.activerecord.Model;@SuppressWarnings("serial")public class DepartOrderFinItem extends Model<DepartOrderFinItem> {	public static final String CREATE_NAME_SYSTEM = "system";	public static final String CREATE_NAME_USER = "user";		public static final DepartOrderFinItem dao = new DepartOrderFinItem();	}

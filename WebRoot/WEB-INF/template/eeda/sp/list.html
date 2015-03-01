@@ -1,0 +1,83 @@
+<%layout("/eeda/layout.html"){%>
+			
+			<div class="row-fluid sortable">		
+				<div class="box span12">
+					<div class="box-header well" data-original-title>
+						<h2><i class="icon-align-justify"></i> 资料列表</h2>
+					</div>				
+					
+					<div class="box-content" id="no-more-tables">
+						<form id="form1" class="form-horizontal"  name="form1" method="post" action=""><!-- START THE FORM -->
+						<div class="row-fluid">
+
+						<div class="span6"> <!-- FIRST COLUMN -->
+						  <fieldset>
+						    <div class="control-group">
+						    	<label class="control-label">区域(office)</label>                         
+	                            <div class="controls">
+	                                <select id="office" name="office">
+	                                <option></option>
+	                                <option value="GUA">广州</option>
+	                                <option value='SHZ'>深圳</option>
+	                                <option value='DON'>东莞</option>
+	                                <option value='ZHO'>中山</option>
+	                                <option value='ZHA'>珠海</option>
+	                                <option value='FSH'>佛山</option>
+	                                <option value='ZHJ'>湛江</option>
+	                                <option value='SHT'>汕头</option>
+	                              </select>
+	                            </div>
+	                        </div>
+
+	                      </fieldset>  
+						</div>
+
+						<div class="span6"> <!-- SECOND COLUMN -->
+						  <fieldset>
+						    	                       
+	                        <div class="control-group" >
+	                            <div class="controls">
+	                              <button id='resetBtn' class='btn btn-primary'>清空过滤条件</button>
+	                            </div>
+	                        </div>
+	                        
+	                      </fieldset>
+	                    </div>
+						</form> <!-- END THE FORM -->
+						<div class="clearfix"></div>
+                        
+					
+						<table id="eeda-table" class="table table-striped table-bordered bootstrap-datatable datatable" >
+						  <thead>
+							  <tr>
+							  	  <th></th>
+							  	  <th>邮件发送时间</th>
+							  	  <th>已退订</th>
+							  	  <th>office</th>
+								  <th>供应商名称</th>
+								  <th>联系信息</th>
+								  <th>邮件</th>
+								  <!--th>电话</th>
+								  <th>传真</th>
+								  <th>地址</th>
+								  <th>国家</th>								  
+								  <th>省</th>
+								  <th>城市</th-->
+							  </tr>
+						  </thead>   
+						  <tbody>
+						     
+						  	
+							
+						  </tbody>
+					  </table>            
+					</div>
+				</div><!--/span-->
+			
+			</div><!--/row-->    
+			<!-- content ends -->
+			
+<%}%>
+
+<script src="/eeda/js/eeda/eeda.js"></script>
+<script src="/eeda/js/eeda/sp/list.js"></script>

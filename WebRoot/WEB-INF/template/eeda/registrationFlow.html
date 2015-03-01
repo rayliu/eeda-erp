@@ -1,0 +1,83 @@
+<%layout("/eeda/layout.html"){%>
+<!-- content starts -->
+
+<div>
+	<ul class="breadcrumb">
+		<li>
+			<a href="#">首页</a>
+			<span class="divider">/</span>
+		</li>
+		<li>
+			<a href="#">珠海工商代理（流程）</a>
+		</li>
+	</ul>
+</div>
+
+<div class="row-fluid sortable">
+	<div class="box span12">
+		
+		<div class="box-content">
+			<div class="box-content">
+				<h1>工商注册流程</h1>
+				<h3>珠海工商代理（流程）/企业服务/信息咨询（政策社会等）</h3>
+				<br/>
+
+				
+				<p>1、核名（1天）股东身份证           免费</p>
+				<p>2、工商（3天）股东和秘书身份证软件 免费</p>
+				<p>3、公章（4天）法人身份证           150元</p>
+				<p>4、代码（3天）法人身份证           308元</p>
+				<p>5、国税（1天）                     免费</p>
+				<p>6、地税（1天）                     免费</p>
+				<p>7、银行（5天）                     免费</p>
+				<p>8、发票章（4个工作日）			 	145元</p>
+				<br/>
+				<p>代办：变更地址，公司名，企业法人代表等。报税年审。虚拟地址注册等</p>
+				<p>代办营业执照:  1500元</p>
+				<p>代办发票章:   100元 </p>
+				<p>每月报税:    300元  </p>
+				<p>提供注册地址：1500元</p>
+				<br/>
+				<p>一切的问题，都欢迎咨询！电话：131-6868-8886 胡经理</p>
+				<img src="/img/eeda-banner.png">
+<br/>
+<br/>
+<br/>
+				<p>
+					<h3>创诚易达-工商企业服务部</h3>
+					<p>工商：工商税务/地址注册/年审报税</p>
+					<p>POS机：专业人员快速上门安装（全广东省代理）</p>
+					<p>政策缓助：户口/消防/环保等政策咨询</p>
+				</p>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+	<!--/span-->
+
+</div>
+<!--/row-->
+
+<!-- content ends -->
+<%}%>
+<!-- validate.min.js 1.11.1 -->
+<script src="/js/jquery.validate.min.js"></script>
+<!-- application script for Charisma demo -->
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#leadsForm').validate({
+		    rules: {
+		      title: {
+		        minlength: 5,
+		        required: true
+		      }
+		    },
+			highlight: function(element) {
+			    $(element).closest('.control-group').removeClass('success').addClass('error');
+			},
+			success: function(element) {
+			    element.text('OK!').addClass('valid').closest('.control-group').removeClass('error').addClass('success');
+			}
+		});
+	});
+</script>

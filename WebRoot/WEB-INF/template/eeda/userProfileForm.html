@@ -1,0 +1,77 @@
+<%layout("/eeda/layout.html"){%>
+<!-- content starts -->
+
+<div>
+	<ul class="breadcrumb">
+		<li>
+			<a href="#">首页</a>
+			<span class="divider">/</span>
+		</li>
+		<li>
+			<a href="#">用户资料</a>
+		</li>
+	</ul>
+</div>
+
+<div class="row-fluid">
+            
+	<div class="box span12">
+	    
+		<div class="box-header well" data-original-title>
+			<h2> <i class="icon-edit"></i>
+				用户资料
+			</h2>
+		</div>
+		<div class="box-content">
+		    <%if(saveOK!''=='ok'){%>  
+		    <div class="alert alert-success">
+              <button type="button" class="close" data-dismiss="alert">×</button>
+              保存成功
+            </div>
+		    <%}%>
+			<form class="form-horizontal" id="leadsForm" name="leadsForm" action="/user/save" method="post">
+				<fieldset>
+					<input id="userId" name="userId" type="hidden" value="${user.id!''}">
+					<input id="oldPwd" name="oldPwd" type="hidden" value="${user.password!''}">
+					<div class="control-group">
+						<label class="control-label" for="focusedInput">登录名</label>
+						<div class="controls">
+						  <span class="input-xlarge uneditable-input">${user.user_name!''}</span>
+						</div>
+					</div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="focusedInput">旧密码</label>
+                        <div class="controls">
+                            <input class="input-xlarge focused" id="old_pwd" name="old_pwd" type="password">
+                        </div>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label class="control-label" for="focusedInput">新密码</label>
+                        <div class="controls">
+                            <input class="input-xlarge focused" id="new_pwd" name="new_pwd" type="password" value="">
+                        </div>
+                    </div>
+
+					<div class="form-actions">						
+						<button type="submit" class="btn btn-primary">保存</button>
+						<a href='/list' class="btn">取消</a>
+					</div>
+
+				</fieldset>
+			</form>
+
+		</div>
+	</div>
+	<!--/span-->
+
+</div>
+<!--/row-->
+
+<!-- content ends -->
+<%}%>
+<!-- validate.min.js 1.11.1 -->
+<script src="/js/jquery.validate.min.js"></script>
+<script src="/js/jvalidate.messages_cn.js"></script>
+<script src="/js/eeda/userProfile.js"></script>

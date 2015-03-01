@@ -1,0 +1,1 @@
+package models.eeda;import com.jfinal.plugin.activerecord.Model;public class OrderItem extends Model<OrderItem> {	public static final OrderItem dao = new OrderItem();}

@@ -1,0 +1,1 @@
+package models.eeda;import com.jfinal.plugin.activerecord.Model;public class Leads extends Model<Leads> {	public static final Leads dao = new Leads();}

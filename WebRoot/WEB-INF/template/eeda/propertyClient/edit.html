@@ -1,0 +1,474 @@
+<%layout("/eeda/layout.html"){%>
+<!-- content starts -->
+
+<div>
+	<ul class="breadcrumb">
+		<li>
+			<a href="#">首页</a>
+			<span class="divider">/</span>
+		</li>
+		<li>
+			<a href="#">新增房产客户</a>
+		</li>
+	</ul>
+</div>
+
+<div class="row-fluid sortable">
+	<div class="box span12">
+		<div class="box-header well" data-original-title>
+			<h2> <i class="icon-edit"></i>
+				房产客户
+			</h2>
+		</div>
+		<%  var isAdminPmInU=shiro.hasAnyRole("admin,property_manager,property_internal_user");
+			var partyAtt;
+		    var isPartyNull = party!''=='';
+		    if(!isPartyNull){
+		   		partyAtt = party.attr;
+		   }
+           
+           //print(partyAtt);
+		%>
+
+		<div class="box-content">
+			<form class="form-horizontal" id='propertyClientForm' name="propertyClientForm" action="<% if(isAdminPmInU|| party.creator!''==userId||isPartyNull){ %>/propertyClient/save<%}else{%>#<%}%>" method="post">
+				<fieldset>
+					<input id="id" name="id" type="hidden" value="${party.id!''}">
+					<legend>房产客户资料单</legend>
+					
+					<div class="control-group">
+						<label class="control-label" for="focusedInput">标题</label>
+						<div class="controls">
+							<% var title=partyAtt!=null?partyAtt['title']:'';%>
+							<input class="input-xlarge focused" id="title" name="title" type="text" value="${title}">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="focusedInput">客户名称</label>
+						<div class="controls">
+							<input class="input-xlarge focused" id="client_name" name="client_name" type="text" value="${partyAtt['client_name']!''}">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">客户等级</label>
+						<div class="controls">
+						      <select id="priority" name="priority">
+								<option></option>
+								<option <%if(partyAtt['priority']!''=='1重要紧急'){%>
+									selected
+									<%}%>>1重要紧急</option>
+								<option <%if(partyAtt['priority']!''=='2重要不紧急'){%>
+									selected
+									<%}%>>2重要不紧急</option>
+								<option <%if(partyAtt['priority']!''=='3不重要紧急'){%>
+									selected
+									<%}%>>3不重要紧急</option>
+								<option <%if(partyAtt['priority']!''=='4不重要不紧急'){%>
+									selected
+									<%}%>>4不重要不紧急</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">求租/售</label>
+						<div class="controls">
+							<select id="statusSel" name="status">
+								<option></option>
+								<option <%if(partyAtt['status']!''=='求租'){%>
+									selected
+									<%}%>>求租</option>
+								<option <%if(partyAtt['status']!''=='求购'){%>
+									selected
+									<%}%>>求购</option>
+								<option <%if(partyAtt['status']!''=='已租'){%>
+									selected
+									<%}%>>已租</option>
+								<option <%if(partyAtt['status']!''=='已买'){%>
+									selected
+									<%}%>>已买</option>
+								<option <%if(partyAtt['status']!''=='暂没需求'){%>
+									selected
+									<%}%>>暂没需求</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="selectError3">房型</label>
+						<div class="controls">
+							<select id="type" name="type">
+								<option></option>
+								<option <%if(partyAtt['type']!''=='1房'){%>
+									selected
+									<%}%>>1房</option>
+								<option <%if(partyAtt['type']!''=='2房'){%>
+									selected
+									<%}%>>2房</option>
+								<option <%if(partyAtt['type']!''=='3房'){%>
+									selected
+									<%}%>>3房</option>
+								<option <%if(partyAtt['type']!''=='4房'){%>
+									selected
+									<%}%>>4房</option>
+								<option <%if(partyAtt['type']!''=='5房'){%>
+									selected
+									<%}%>>5房</option>
+								<option <%if(partyAtt['type']!''=='6房'){%>
+									selected
+									<%}%>>6房</option>
+								<option <%if(partyAtt['type']!''=='6房以上'){%>
+									selected
+									<%}%>>6房以上</option>
+								<option <%if(partyAtt['type']!''=='厂房/仓库'){%>
+									selected
+									<%}%>>厂房/仓库</option>
+								<option <%if(partyAtt['type']!''=='整栋厂房'){%>
+									selected
+									<%}%>>整栋厂房</option>
+								<option <%if(partyAtt['type']!''=='别墅'){%>
+									selected
+									<%}%>>别墅</option>
+								<option <%if(partyAtt['type']!''=='地皮'){%>
+									selected
+									<%}%>>地皮</option>
+								<option <%if(partyAtt['type']!''=='商铺'){%>
+									selected
+									<%}%>>商铺</option>
+								<option <%if(partyAtt['type']!''=='车库'){%>
+									selected
+									<%}%>>车库</option>
+								<option <%if(partyAtt['type']!''=='写字楼'){%>
+									selected
+									<%}%>>写字楼</option>
+
+							</select>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="selectError3">区域</label>
+						<div class="controls">
+							<select id="region"  name="region">
+								<option></option>
+								<option <%if(partyAtt['region']!''=='香洲'){%>
+									selected
+									<%}%>>香洲</option>
+								<option <%if(partyAtt['region']!''=='老香洲'){%>
+									selected
+									<%}%>>老香洲</option>
+								<option <%if(partyAtt['region']!''=='新香洲'){%>
+									selected
+									<%}%>>新香洲</option>
+								<option <%if(partyAtt['region']!''=='柠溪'){%>
+									selected
+									<%}%>>柠溪</option>
+								<option <%if(partyAtt['region']!''=='吉大'){%>
+									selected
+									<%}%>>吉大</option>
+								<option <%if(partyAtt['region']!''=='兰埔'){%>
+									selected
+									<%}%>>兰埔</option>
+								<option <%if(partyAtt['region']!''=='湾仔'){%>
+									selected
+									<%}%>>湾仔</option>
+								<option <%if(partyAtt['region']!''=='南屏'){%>
+									selected
+									<%}%>>南屏</option>
+								<option <%if(partyAtt['region']!''=='前山'){%>
+									selected
+									<%}%>>前山</option>
+								<option <%if(partyAtt['region']!''=='拱北'){%>
+									selected
+									<%}%>>拱北</option>
+								<option <%if(partyAtt['region']!''=='夏湾'){%>
+									selected
+									<%}%>>夏湾</option>
+								<option <%if(partyAtt['region']!''=='斗门'){%>
+									selected
+									<%}%>>斗门</option>
+								<option <%if(partyAtt['region']!''=='金湾'){%>
+									selected
+									<%}%>>金湾</option>
+								<option <%if(partyAtt['region']!''=='唐家'){%>
+									selected
+									<%}%>>唐家</option>
+								<option <%if(partyAtt['region']!''=='上冲'){%>
+									selected
+									<%}%>>上冲</option>
+								<option <%if(partyAtt['region']!''=='其他'){%>
+									selected
+									<%}%>>其他</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" >面积（平）</label>
+						<div class="controls">
+							<input class="input-xlarge focused" id="area" name="area" type="text" value="${partyAtt['area']!0}">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" >总价(万)/租金(元)</label>
+						<div class="controls">
+							<input class="input-xlarge focused" id="total" name="total" type="text" value="${partyAtt['total']!0}">
+						</div>
+					</div>
+
+					
+					<div class="control-group">
+						<label class="control-label" >客户职业</label>
+						<div class="controls">
+							<input class="input-xlarge focused" id="career" name="career" type="text" value="${partyAtt['career']!''}">
+						</div>
+					</div>
+					
+
+
+					<div class="control-group">
+						<label class="control-label" for="textarea2">详细情况</label>
+						<div class="controls">
+							<textarea class="cleditor11 autogrow" id="intro" name="intro" rows="10">
+								<%if(partyAtt['intro']!''!=''){%>
+								${partyAtt['intro']}
+								<%}else{%>求购/租:
+								区域： 
+价格：  
+付款方式：  
+面积： 
+电梯/楼梯  
+具体要求：
+								<%}%></textarea>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="textarea2">跟进情况</label>
+						<div class="controls">
+							<textarea class="cleditor11 autogrow" id="follow_info" name="follow_info" rows="8"><%if(partyAtt['follow_info']!''!=''){%>
+								${partyAtt['follow_info']}
+								<%}else{%>跟进情况：
+								跟进人：
+跟进日期：<%}%></textarea>
+						</div>
+					</div>
+
+					<% if(isAdminPmInU || party.creator!''==userId || isPartyNull) { %>
+					<div class="control-group">
+						<label class="control-label" for="focusedInput">介绍人</label>
+						<div class="controls">
+							<input class="input-xlarge focused" id="introducer" name="introducer" type="text" value="${partyAtt['introducer']!''}"></div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="focusedInput">客户来源</label>
+						<div class="controls">
+							<input class="input-xlarge focused" id="customer_source" name="customer_source" type="text" value="${partyAtt['customer_source']!''}"></div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="focusedInput">接单人/合作单位</label>
+						<div class="controls">
+							<input class="input-xlarge focused" id="sales" name="sales" type="text" value="${partyAtt['sales']!''}"></div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="focusedInput">跟进人</label>
+						<div class="controls">
+							<input class="input-xlarge focused" id="follower" name="follower" type="text" value="${partyAtt['follower']!''}"></div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="focusedInput">跟进人电话</label>
+						<div class="controls">
+							<input class="input-xlarge focused" id="follower_phone" name="follower_phone" type="text" value="${partyAtt['follower_phone']!''}"></div>
+					</div>
+					
+					<div class="control-group">
+						<label class="control-label" for="focusedInput">客户电话1</label>
+						<div class="controls">
+							<input class="input-xlarge focused" id="client_phone1" name="client_phone1" type="text" value="${partyAtt['client_phone1']!''}">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="focusedInput">电话2</label>
+						<div class="controls">
+							<input class="input-xlarge focused" id="client_phone2" name="client_phone2" type="text" value="${partyAtt['client_phone2']!''}">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="focusedInput">电话3</label>
+						<div class="controls">
+							<input class="input-xlarge focused" id="client_phone3" name="client_phone3" type="text" value="${partyAtt['client_phone3']!''}">
+						</div>
+					</div>
+					
+					<%}%>
+
+
+					<div class="form-actions">
+						<% if(isAdminPmInU || party.creator!''==userId || isPartyNull){ %>
+						<button type="submit" class="btn btn-primary" name="submit">保存</button>
+						<%}%>
+						<a href='/propertyClient?${queryString}' class="btn">取消</a>
+					</div>
+
+				</fieldset>
+			</form>
+
+		</div>
+	</div>
+	<!--/span-->
+
+</div>
+<!--/row-->
+
+<!-- content ends -->
+<%}%>
+<!-- validate.min.js 1.11.1 -->
+<script src="/js/jquery.validate.min.js"></script>
+<script src="/js/jvalidate.messages_cn.js"></script>
+<script>
+	$(document).ready(function() {
+
+	$("#statusSel").on("change", function(){
+		
+		var statusValue = '';
+
+		statusValue = $(this).val();
+		var type = $("#type").val();
+		if(type==undefined)
+			type='';
+
+
+		
+		if(statusValue=='出租'){
+			if(type.substr(0, 1) <= 6){//'1房'- 6房以上
+				$("#intro").val('（ ）房（ ）厅（ ）卫（ ）阳:\n建筑面积:\n套内面积:\n朝向:\n楼层:\n第（ ）层，共（ ）:\n房屋配置（全齐或者部分）:\n电梯/楼梯:\n租金:\n看房方式（约看/自住/出租）:\n其他要求:\n注意事项:\n');
+			}
+			if(type=='厂房/仓库'||type=='整栋厂房'){
+				$("#intro").val('建筑面积:\n 套内面积:\n 朝向:\n 楼层:\n第（ ）层，共（ ）层 总高:\n 电梯/楼梯:\n 租金:\n 元/平/月:\n 管理费:\n 看房方式（约看/出租中/空置/自用）:\n 现状经营:\n 其他要求:\n 注意事项:\n');
+			}
+			if(type=='商铺'){
+				$("#intro").val('建筑面积:\n 套内面积:\n 朝向:\n 楼层:\n第（ ）层，共（ ）层 商铺总高:\n 是否两层（每层面积）:\n 电梯/楼梯:\n 租金:\n 元/平/月:\n 管理费:\n 停车费:\n 看房方式（约看/出租中/空置/自用）:\n 现状经营:\n 其他要求:\n 注意事项:\n');
+			}
+			if(type=='别墅'){
+				$("#intro").val('（ ）房（ ）厅（ ）卫（ ）阳台 别墅性质（独立/联排）:\n 建筑面积:\n 套内面积:\n 朝向:\n 楼层:\n第（ ）层，共（ ）层 花园面积:\n 附送面积:\n 房屋配置（全齐或者部分）:\n 电梯/楼梯:\n 租金:\n 看房方式（约看/自住/出租）:\n 其他要求:\n 注意事项:\n');
+			}
+			if(type=='车库'){
+				$("#intro").val('建筑面积:\n 套内面积:\n 朝向:\n 楼层:\n第（ ）层，共（ ）层 商铺总高:\n 是否两层（每层面积）:\n 电梯/楼梯:\n 租金:\n 元/平/月:\n 管理费:\n 看房方式（约看/出租中/空置/自用）:\n 现状经营:\n 其他要求:\n 注意事项:\n');
+			}
+			if(type=='写字楼'){
+				$("#intro").val('（ ）房（）厅:\n 建筑面积:\n 套内面积:\n 朝向:\n 楼层:\n第（ ）层，共（ ）层 写字楼配置（全齐或者部分）:\n 电梯/楼梯:\n 租金:\n 元/平/月:\n 管理费:\n 停车费:\n 看房方式（约看/出租中/空置/自用）:\n 现状经营:\n 其他要求:\n 注意事项:\n');
+			}
+		}
+
+		if(statusValue=='出售'){
+			if(type.substr(0, 1) <= 6){
+				$("#intro").val('（ ）房（ ）厅（ ）卫（ ）阳台:\n建筑面积:\n套内面积:\n朝向:\n楼层:\n第（ ）层，共（ ）:\n电梯/楼梯:\n总价:\n税务实收/各付:\n原购价（发票价）:\n购入日期（指契税填发日期）:\n看房方式（约看/自住/出租）:\n其他要求:\n注意事项:\n');
+			}
+			if(type=='厂房/仓库'||type=='整栋厂房'){
+				$("#intro").val('建筑面积:\n 套内面积:\n 朝向:\n 楼层:\n第（ ）层，共（ ）层 总高:\n 电梯/楼梯:\n 总价:\n 税务实收/各付:\n 原购价（发票价）:\n 购入日期（指契税填发日期）:\n 管理费:\n 停车:\n 可租（月租）:\n 元/平/月:\n 看房方式（约看/出租中/空置/自用）:\n 现状经营:\n 其他要求:\n 注意事项:\n');
+			}
+			if(type=='商铺'){
+				$("#intro").val('建筑面积:\n 套内面积:\n 朝向:\n 楼层:\n第（ ）层，共（ ）层 商铺总高:\n 是否两层（每层面积）:\n 电梯/楼梯:\n 总价:\n 税务实收/各付:\n 原购价（发票价）:\n 购入日期（指契税填发日期）:\n 管理费:\n 停车费:\n 可租（月租）:\n 元/平/月:\n 看房方式（约看/出租中/空置/自用）:\n 现状经营:\n 其他要求:\n 注意事项:\n');
+			}
+			if(type=='别墅'){
+				$("#intro").val('（ ）房（ ）厅（ ）卫（ ）阳台 别墅性质（独立/联排）:\n 建筑面积:\n 套内面积:\n 朝向:\n 楼层:\n第（ ）层，共（ ）层 花园面积:\n 附送面积:\n 电梯/楼梯:\n 总价:\n 税务实收/各付:\n 原购价（发票价）:\n 购入日期（指契税填发日期）:\n 看房方式（约看/自住/出租）:\n 其他要求:\n 注意事项:\n');
+			}
+			if(type=='车库'){
+				$("#intro").val('建筑面积:\n 套内面积:\n 朝向:\n 楼层:\n第（ ）层，共（ ）层 商铺总高:\n 是否两层（每层面积）:\n 电梯/楼梯:\n 总价:\n 税务实收/各付:\n 原购价（发票价）:\n 购入日期（指契税填发日期）:\n 管理费:\n 停车:\n 可租（月租）:\n 元/平/月:\n 看房方式（约看/出租中/空置/自用）:\n 现状经营:\n 其他要求:\n 注意事项:\n');
+			}
+			if(type=='写字楼'){
+				$("#intro").val('（ ）房（）厅 建筑面积:\n 套内面积:\n 朝向:\n 楼层:\n第（ ）层，共（ ）层 写字楼配置（全齐或者部分）:\n 电梯/楼梯:\n 总价:\n 税务实收/各付:\n 原购价（发票价）:\n 购入日期（指契税填发日期）:\n 管理费:\n 停车费:\n 可租（月租）:\n 元/平/月:\n 看房方式（约看/出租中/空置/自用）:\n 现状经营:\n 其他要求:\n 注意事项:\n');
+			}
+		}
+		
+			
+
+	});
+
+	$("#type").change( function(){
+				
+		var type = $(this).val();
+		var statusValue = $("#statusSel").val();
+		
+		if(statusValue==undefined)
+			statusValue='';
+		
+		if(statusValue=='出租'){
+			if(type.substr(0, 1) <= 6){
+				$("#intro").val('（ ）房（ ）厅（ ）卫（ ）阳台\n建筑面积:\n套内面积:\n朝向:\n楼层:\n第（ ）层，共（ ）:\n房屋配置（全齐或者部分）:\n电梯/楼梯:\n租金:\n看房方式（约看/自住/出租）:\n其他要求:\n注意事项:\n');
+			}
+			if(type=='厂房/仓库'||type=='整栋厂房'){
+				$("#intro").val('建筑面积:\n 套内面积:\n 朝向:\n 楼层:\n第（ ）层，共（ ）层 总高:\n 电梯/楼梯:\n 租金:\n 元/平/月:\n 管理费:\n 看房方式（约看/出租中/空置/自用）:\n 现状经营:\n 其他要求:\n 注意事项:\n');
+			}
+			if(type=='商铺'){
+				$("#intro").val('建筑面积:\n 套内面积:\n 朝向:\n 楼层:\n第（ ）层，共（ ）层 商铺总高:\n 是否两层（每层面积）:\n 电梯/楼梯:\n 租金:\n 元/平/月:\n 管理费:\n 停车费:\n 看房方式（约看/出租中/空置/自用）:\n 现状经营:\n 其他要求:\n 注意事项:\n');
+			}
+			if(type=='别墅'){
+				$("#intro").val('（ ）房（ ）厅（ ）卫（ ）阳台 别墅性质（独立/联排）:\n 建筑面积:\n 套内面积:\n 朝向:\n 楼层:\n第（ ）层，共（ ）层 花园面积:\n 附送面积:\n 房屋配置（全齐或者部分）:\n 电梯/楼梯:\n 租金:\n 看房方式（约看/自住/出租）:\n 其他要求:\n 注意事项:\n');
+			}
+			if(type=='车库'){
+				$("#intro").val('建筑面积:\n 套内面积:\n 朝向:\n 楼层:\n第（ ）层，共（ ）层 商铺总高:\n 是否两层（每层面积）:\n 电梯/楼梯:\n 租金:\n 元/平/月:\n 管理费:\n 看房方式（约看/出租中/空置/自用）:\n 现状经营:\n 其他要求:\n 注意事项:\n');
+			}
+			if(type=='写字楼'){
+				$("#intro").val('（ ）房（）厅:\n 建筑面积:\n 套内面积:\n 朝向:\n 楼层:\n第（ ）层，共（ ）层 写字楼配置（全齐或者部分）:\n 电梯/楼梯:\n 租金:\n 元/平/月:\n 管理费:\n 停车费:\n 看房方式（约看/出租中/空置/自用）:\n 现状经营:\n 其他要求:\n 注意事项:\n');
+			}
+		}
+
+		if(statusValue=='出售'){
+			if(type.substr(0, 1) <= 6){
+				$("#intro").val('（ ）房（ ）厅（ ）卫（ ）阳台:\n建筑面积:\n套内面积:\n朝向:\n楼层:\n第（ ）层，共（ ）:\n电梯/楼梯:\n总价:\n税务实收/各付:\n原购价（发票价）:\n购入日期（指契税填发日期）:\n看房方式（约看/自住/出租）:\n其他要求:\n注意事项:\n');
+			}
+			if(type=='厂房/仓库'||type=='整栋厂房'){
+				$("#intro").val('建筑面积:\n 套内面积:\n 朝向:\n 楼层:\n第（ ）层，共（ ）层 总高:\n 电梯/楼梯:\n 总价:\n 税务实收/各付:\n 原购价（发票价）:\n 购入日期（指契税填发日期）:\n 管理费:\n 停车:\n 可租（月租）:\n 元/平/月:\n 看房方式（约看/出租中/空置/自用）:\n 现状经营:\n 其他要求:\n 注意事项:\n');
+			}
+			if(type=='商铺'){
+				$("#intro").val('建筑面积:\n 套内面积:\n 朝向:\n 楼层:\n第（ ）层，共（ ）层 商铺总高:\n 是否两层（每层面积）:\n 电梯/楼梯:\n 总价:\n 税务实收/各付:\n 原购价（发票价）:\n 购入日期（指契税填发日期）:\n 管理费:\n 停车费:\n 可租（月租）:\n 元/平/月:\n 看房方式（约看/出租中/空置/自用）:\n 现状经营:\n 其他要求:\n 注意事项:\n');
+			}
+			if(type=='别墅'){
+				$("#intro").val('（ ）房（ ）厅（ ）卫（ ）阳台 别墅性质（独立/联排）:\n 建筑面积:\n 套内面积:\n 朝向:\n 楼层:\n第（ ）层，共（ ）层 花园面积:\n 附送面积:\n 电梯/楼梯:\n 总价:\n 税务实收/各付:\n 原购价（发票价）:\n 购入日期（指契税填发日期）:\n 看房方式（约看/自住/出租）:\n 其他要求:\n 注意事项:\n');
+			}
+			if(type=='车库'){
+				$("#intro").val('建筑面积:\n 套内面积:\n 朝向:\n 楼层:\n第（ ）层，共（ ）层 商铺总高:\n 是否两层（每层面积）:\n 电梯/楼梯:\n 总价:\n 税务实收/各付:\n 原购价（发票价）:\n 购入日期（指契税填发日期）:\n 管理费:\n 停车:\n 可租（月租）:\n 元/平/月:\n 看房方式（约看/出租中/空置/自用）:\n 现状经营:\n 其他要求:\n 注意事项:\n');
+			}
+			if(type=='写字楼'){
+				$("#intro").val('（ ）房（）厅 建筑面积:\n 套内面积:\n 朝向:\n 楼层:\n第（ ）层，共（ ）层 写字楼配置（全齐或者部分）:\n 电梯/楼梯:\n 总价:\n 税务实收/各付:\n 原购价（发票价）:\n 购入日期（指契税填发日期）:\n 管理费:\n 停车费:\n 可租（月租）:\n 元/平/月:\n 看房方式（约看/出租中/空置/自用）:\n 现状经营:\n 其他要求:\n 注意事项:\n');
+			}
+		}
+	});
+
+	$('#propertyClientForm').validate({
+	    rules: {
+	      title: {
+	        required: true
+	      },
+	      client_name: {
+	        required: true
+	      },
+	      area:{
+	      	number: true
+	      },
+	      total:{
+	      	number: true
+	      },
+	      status: {
+	        required: true
+	      }
+	    },
+		highlight: function(element) {
+		    $(element).closest('.control-group').removeClass('success').addClass('error');
+		},
+		success: function(element) {
+		    element.text('OK!').addClass('valid').closest('.control-group').removeClass('error').addClass('success');
+		}
+	});
+});
+</script>

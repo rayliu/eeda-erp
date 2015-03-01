@@ -1,0 +1,1 @@
+package models;import com.jfinal.plugin.activerecord.Model;@SuppressWarnings("serial")public class InsuranceFinItem extends Model<InsuranceFinItem> {	public static final InsuranceFinItem dao = new InsuranceFinItem();}
