@@ -1,7 +1,5 @@
 package config;
 
-import handler.UrlHanlder;
-
 import java.lang.management.ManagementFactory;
 import java.sql.SQLException;
 
@@ -204,9 +202,7 @@ public class EedaConfig extends JFinalConfig {
             DataInitUtil.initData(cp);
         }
         //DataInitUtil.initData(cp);
-        
-        
-        me.add(new UrlHanlder());
+       
         
     }
 }
