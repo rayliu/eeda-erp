@@ -1,16 +1,14 @@
 package com.jfinal.weixin.demo;
 
-import java.util.UUID;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Formatter;
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.io.UnsupportedEncodingException;  
+import java.util.Formatter;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 import com.jfinal.log.Logger;
-
-import controllers.yh.arap.AccountAuditLogController;
 
 
 public class SignKit {

@@ -4,6 +4,7 @@
 	
 	<!-- 定义一些变量，其值是基于其他的变量值 -->
 	<property name="project.classpath" value="WebRoot/WEB-INF/classes"></property>
+	<property name="project.config_path" value="config"></property>
 	
 	<!--path id="project.classpath">
 	    <fileset dir="WebRoot/WEB-INF/classes" />
@@ -15,8 +16,8 @@
 
 	
 	<target name="h2">
-		<copy tofile="${project.classpath}/shiro.ini" file="WebRoot/WEB-INF/config/shiro.ini-h2" overwrite="true"/>
-		<copy tofile="${project.classpath}/app_config.txt" file="WebRoot/WEB-INF/config/app_config.txt-h2" overwrite="true"/>
+		<copy tofile="${project.classpath}/shiro.ini" file="${project.config_path}/shiro.ini-h2" overwrite="true"/>
+		<copy tofile="${project.classpath}/app_config.txt" file="${project.config_path}/app_config.txt-h2" overwrite="true"/>
 		<property name="db" value="H2" />
 		<java classname="com.jfinal.core.JFinal" classpathref="project.lib.path">
 			<arg value="WebRoot"/>
@@ -29,8 +30,8 @@
 	</target>
 	
 	<target name="mysql">
-		<copy tofile="${project.classpath}/shiro.ini" file="WebRoot/WEB-INF/config/shiro.ini-mysql" overwrite="true"/>
-		<copy tofile="${project.classpath}/app_config.txt" file="WebRoot/WEB-INF/config/app_config.txt-mysql" overwrite="true"/>
+		<copy tofile="${project.classpath}/shiro.ini" file="${project.config_path}/shiro.ini-mysql" overwrite="true"/>
+		<copy tofile="${project.classpath}/app_config.txt" file="${project.config_path}/app_config.txt-mysql" overwrite="true"/>
         <java classname="com.jfinal.core.JFinal" classpathref="project.lib.path">
             <arg value="WebRoot"/>
             <arg value="8080"/>
@@ -41,8 +42,8 @@
     </target>
 	
 	<target name="erp-prod">
-		<copy tofile="${project.classpath}/shiro.ini" file="WebRoot/WEB-INF/config/shiro.ini-prod" overwrite="true"/>
-		<copy tofile="${project.classpath}/app_config.txt" file="WebRoot/WEB-INF/config/app_config.txt-prod" overwrite="true"/>
+		<copy tofile="${project.classpath}/shiro.ini" file="${project.config_path}/shiro.ini-prod" overwrite="true"/>
+		<copy tofile="${project.classpath}/app_config.txt" file="${project.config_path}/app_config.txt-prod" overwrite="true"/>
         <java classname="com.jfinal.core.JFinal" classpathref="project.lib.path">
             <arg value="WebRoot"/>
             <arg value="8080"/>
