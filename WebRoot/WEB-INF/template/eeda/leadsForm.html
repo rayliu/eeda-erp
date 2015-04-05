@@ -1,0 +1,501 @@
+<%layout("/eeda/layout.html"){%>
+<!-- content starts -->
+
+<div>
+	<ul class="breadcrumb">
+		<li>
+			<a href="#">首页</a>
+			<span class="divider">/</span>
+		</li>
+		<li>
+			<a href="#">新增房地产资料</a>
+		</li>
+	</ul>
+</div>
+
+<div class="row-fluid sortable">
+	<div class="box span12">
+		<div class="box-header well" data-original-title>
+			<h2> <i class="icon-edit"></i>
+				房地产资料单
+			</h2>
+		</div>
+		<%  var isAdminPmInU = shiro.hasAnyRole("admin,property_manager,property_internal_user");
+		    var isAdminPm= shiro.hasAnyRole("admin,property_manager");
+			var isPublic = leads.isPublic=='Y'?true:false;
+		%>
+
+		<div class="box-content">
+			<form class="form-horizontal" id='leadsForm' name="leadsForm" action="<% if(isAdminPmInU){ %>/saveLeads<%}else{%>#<%}%>" method="post">
+				<fieldset>
+					<input id="leadsId" name="leadsId" type="hidden" value="${leads.id!''}">
+					<legend>资料单</legend>
+					
+					<div class="control-group">
+						<label class="control-label" for="focusedInput">小区名称/大厦名称</label>
+						<div class="controls">
+							<input class="input-xlarge focused" id="building_name" name="building_name" type="text" value="${leads.building_name!''}">
+						</div>
+					</div>
+					<% if(isAdminPmInU){ %>
+					<div class="control-group">
+						<label class="control-label" for="focusedInput"></label>							
+						<div class="controls">
+							<input style="text-align: right;" class="input-mini focused" id="building_no" name="building_no" type="text" value="${leads.building_no!''}">栋 
+							<input style="text-align: right;" class="input-mini focused" id="building_unit" name="building_unit" type="text" value="${leads.building_unit!''}">单元
+							<input style="text-align: right;" class="input-mini focused" id="room_no" name="room_no" type="text" value="${leads.room_no!''}">房
+						</div>
+					</div>
+					<%}%>
+					<div class="control-group">
+						<label class="control-label">客户等级</label>
+						<div class="controls">
+						      <select id="priority" name="priority">
+								<option></option>
+								<option <%if(leads.priority!''=='1重要紧急'){%>
+									selected
+									<%}%>>1重要紧急</option>
+								<option <%if(leads.priority!''=='2重要不紧急'){%>
+									selected
+									<%}%>>2重要不紧急</option>
+								<option <%if(leads.priority!''=='3不重要紧急'){%>
+									selected
+									<%}%>>3不重要紧急</option>
+								<option <%if(leads.priority!''=='4不重要不紧急'){%>
+									selected
+									<%}%>>4不重要不紧急</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">租售状态</label>
+						<div class="controls">
+							<select id="statusSel" name="status">
+								<option></option>
+								<option <%if(leads.status!''=='出租'){%>
+									selected
+									<%}%>>出租</option>
+								<option <%if(leads.status!''=='出售'){%>
+									selected
+									<%}%>>出售</option>
+								<option <%if(leads.status!''=='已付订金'){%>
+									selected
+									<%}%>>已付订金</option>
+								<option <%if(leads.status!''=='已租'){%>
+									selected
+									<%}%>>已租</option>
+								<option <%if(leads.status!''=='已售'){%>
+									selected
+									<%}%>>已售</option>
+								<option <%if(leads.status!''=='空置中'){%>
+									selected
+									<%}%>>空置中</option>
+								<option <%if(leads.status!''=='自用中'){%>
+									selected
+									<%}%>>自用中</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="selectError3">房型</label>
+						<div class="controls">
+							<select id="type" name="type">
+								<option></option>
+								<option <%if(leads.type!''=='1房'){%>
+									selected
+									<%}%>>1房</option>
+								<option <%if(leads.type!''=='2房'){%>
+									selected
+									<%}%>>2房</option>
+								<option <%if(leads.type!''=='3房'){%>
+									selected
+									<%}%>>3房</option>
+								<option <%if(leads.type!''=='4房'){%>
+									selected
+									<%}%>>4房</option>
+								<option <%if(leads.type!''=='5房'){%>
+									selected
+									<%}%>>5房</option>
+								<option <%if(leads.type!''=='6房'){%>
+									selected
+									<%}%>>6房</option>
+								<option <%if(leads.type!''=='6房以上'){%>
+									selected
+									<%}%>>6房以上</option>
+								<option <%if(leads.type!''=='厂房/仓库'){%>
+									selected
+									<%}%>>厂房/仓库</option>
+								<option <%if(leads.type!''=='整栋厂房'){%>
+									selected
+									<%}%>>整栋厂房</option>
+								<option <%if(leads.type!''=='别墅'){%>
+									selected
+									<%}%>>别墅</option>
+								<option <%if(leads.type!''=='地皮'){%>
+									selected
+									<%}%>>地皮</option>
+								<option <%if(leads.type!''=='商铺'){%>
+									selected
+									<%}%>>商铺</option>
+								<option <%if(leads.type!''=='车库'){%>
+									selected
+									<%}%>>车库</option>
+								<option <%if(leads.type!''=='写字楼'){%>
+									selected
+									<%}%>>写字楼</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="selectError3">区域</label>
+						<div class="controls">
+							<select id="region"  name="region">
+								<option></option>
+								<option <%if(leads.region!''=='香洲'){%>
+									selected
+									<%}%>>香洲</option>
+								<option <%if(leads.region!''=='老香洲'){%>
+									selected
+									<%}%>>老香洲</option>
+								<option <%if(leads.region!''=='新香洲'){%>
+									selected
+									<%}%>>新香洲</option>
+								<option <%if(leads.region!''=='柠溪'){%>
+									selected
+									<%}%>>柠溪</option>
+								<option <%if(leads.region!''=='吉大'){%>
+									selected
+									<%}%>>吉大</option>
+								<option <%if(leads.region!''=='兰埔'){%>
+									selected
+									<%}%>>兰埔</option>
+								<option <%if(leads.region!''=='湾仔'){%>
+									selected
+									<%}%>>湾仔</option>
+								<option <%if(leads.region!''=='南屏'){%>
+									selected
+									<%}%>>南屏</option>
+								<option <%if(leads.region!''=='前山'){%>
+									selected
+									<%}%>>前山</option>
+								<option <%if(leads.region!''=='拱北'){%>
+									selected
+									<%}%>>拱北</option>
+								<option <%if(leads.region!''=='夏湾'){%>
+									selected
+									<%}%>>夏湾</option>
+								<option <%if(leads.region!''=='斗门'){%>
+									selected
+									<%}%>>斗门</option>
+								<option <%if(leads.region!''=='金湾'){%>
+									selected
+									<%}%>>金湾</option>
+								<option <%if(leads.region!''=='唐家'){%>
+									selected
+									<%}%>>唐家</option>
+								<option <%if(leads.region!''=='上冲'){%>
+									selected
+									<%}%>>上冲</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" >面积（平）</label>
+						<div class="controls">
+							<input class="input-xlarge focused" id="area" name="area" type="text" value="${leads.area!0}">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" >总价(万)/租金(元)</label>
+						<div class="controls">
+							<input class="input-xlarge focused" id="total" name="total" type="text" value="${leads.total!0}">
+						</div>
+					</div>
+
+					
+					<div class="control-group">
+						<label class="control-label" >地址</label>
+						<div class="controls">
+							<input class="input-xlarge focused" id="addr" name="addr" type="text" value="${leads.addr!''}">
+						</div>
+					</div>
+					
+
+					<div class="control-group">
+						<label class="control-label" for="focusedInput">广告标题</label>
+						<div class="controls">
+							<input class="input-xlarge focused" id="title" name="title" type="text" value="${leads.title!''}">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="textarea2">描述</label>
+						<div class="controls">
+							<textarea class="cleditor11 autogrow" id="intro" name="intro" rows="10">
+								<%if(leads.intro!''!=''){%>
+								${leads.intro}
+								<%}else{%>几房几厅几卫:
+								面积：
+朝向：
+楼层：
+总层楼：
+电梯楼梯：
+价格：
+税务实收/各付：
+原购价（发票价）：
+购入房屋日期：
+看房方式（约看/自住/出租）：
+其他要求:<%}%></textarea>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="textarea2">跟进情况</label>
+						<div class="controls">
+							<textarea class="cleditor11 autogrow" id="remark" name="remark" rows="8"><%if(leads.remark!''!=''){%>
+								${leads.remark}
+								<%}else{%>跟进情况：
+								跟进人：
+跟进日期：<%}%></textarea>
+						</div>
+					</div>
+
+					<% if( isPublic || isAdminPm || leads.creator!''=='' ||userId==leads.creator!'' ) { %>
+					<div class="control-group">
+						<label class="control-label" for="focusedInput">介绍人</label>
+						<div class="controls">
+							<input class="input-xlarge focused" id="introducer" name="introducer" type="text" value="${leads.introducer!''}"></div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="focusedInput">客户来源</label>
+						<div class="controls">
+							<input class="input-xlarge focused" id="customer_source" name="customer_source" type="text" value="${leads.customer_source!''}"></div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="focusedInput">接单人/合作单位</label>
+						<div class="controls">
+							<input class="input-xlarge focused" id="sales" name="sales" type="text" value="${leads.sales!''}"></div>
+					</div>
+					<%}%>
+					<% if(isPublic ||isAdminPmInU || leads.creator!''=='' ||userId==leads.creator!'' ) { %>
+					<div class="control-group">
+						<label class="control-label" for="focusedInput">跟进人</label>
+						<div class="controls">
+							<input class="input-xlarge focused" id="follower" name="follower" type="text" value="${leads.follower!''}"></div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="focusedInput">跟进人电话</label>
+						<div class="controls">
+							<input class="input-xlarge focused" id="follower_phone" name="follower_phone" type="text" value="${leads.follower_phone!''}"></div>
+					</div>
+					<%}%>
+					<% if(isPublic || isAdminPm || leads.creator!''=='' || userId==leads.creator!'' ) { %>
+					<div class="control-group">
+						<label class="control-label" for="focusedInput">业主</label>
+						<div class="controls">
+							<input class="input-medium focused" id="owner" name="owner" type="text" value="${leads.owner!''}">
+							<label class="checkbox inline">								
+								<input type="checkbox" id="is_have_car" name="is_have_car" value="Y" style="opacity: 0;" <%if(leads.is_have_car!'N'=='Y'){%>checked<%}%>>						
+								有车
+						  	</label>
+						</div>
+					</div>
+					
+					<div class="control-group">
+						<label class="control-label" for="focusedInput">业主电话</label>
+						<div class="controls">
+							<input class="input-xlarge focused" id="owner_phone" name="owner_phone" type="text" value="${leads.owner_phone!''}">
+						</div>
+					</div>
+					
+					<div class="control-group">
+						<label class="control-label" for="focusedInput"></label>
+						<div class="controls">							
+							<label class="checkbox inline">								
+								<input type="checkbox" id="is_public" name="is_public" value="Y" style="opacity: 0;" <%if(leads.is_public!'N'=='Y'){%>checked<%}%>>						
+								公开此资料(所有内部人员可见)
+						  	</label>
+						</div>
+					</div>
+					<%}%>
+
+					<div class="control-group">
+						<label class="control-label" for="focusedInput">底价(元)</label>
+						<div class="controls">
+							<input class="input-xlarge focused" id="lowest_price" name="lowest_price" type="text" value="${leads.lowest_price!0}"></div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="focusedInput">代理费</label>
+						<div class="controls">
+							<input class="input-xlarge focused" id="agent_fee" name="agent_fee" type="text" value="${leads.agent_fee!0}"></div>
+					</div>					
+
+					<div class="form-actions">
+						<% if(isAdminPmInU || leads.creator!''=='' ||userId==leads.creator!''){ %>
+						<button type="submit" class="btn btn-primary" name="submit">保存</button>
+						<%}%>
+						<a href='/list?${queryString}' class="btn">取消</a>
+                            
+					</div>
+
+				</fieldset>
+			</form>
+
+		</div>
+	</div>
+	<!--/span-->
+
+</div>
+<!--/row-->
+
+<!-- content ends -->
+<%}%>
+<!-- validate.min.js 1.11.1 -->
+<script src="/js/jquery.validate.min.js"></script>
+<script src="/js/jvalidate.messages_cn.js"></script>
+<script>
+	$(document).ready(function() {
+
+	$("#statusSel").on("change", function(){
+		
+		var statusValue = '';
+
+		statusValue = $(this).val();
+		var type = $("#type").val();
+		if(type==undefined)
+			type='';
+
+
+		
+		if(statusValue=='出租'){
+			if(type.substr(0, 1) <= 6){//'1房'- 6房以上
+				$("#intro").val('（ ）房（ ）厅（ ）卫（ ）阳:\n建筑面积:\n套内面积:\n朝向:\n楼层:\n第（ ）层，共（ ）:\n房屋配置（全齐或者部分）:\n电梯/楼梯:\n租金:\n看房方式（约看/自住/出租）:\n其他要求:\n注意事项:\n');
+			}
+			if(type=='厂房/仓库'||type=='整栋厂房'){
+				$("#intro").val('建筑面积:\n 套内面积:\n 朝向:\n 楼层:\n第（ ）层，共（ ）层 总高:\n 电梯/楼梯:\n 租金:\n 元/平/月:\n 管理费:\n 看房方式（约看/出租中/空置/自用）:\n 现状经营:\n 其他要求:\n 注意事项:\n');
+			}
+			if(type=='商铺'){
+				$("#intro").val('建筑面积:\n 套内面积:\n 朝向:\n 楼层:\n第（ ）层，共（ ）层 商铺总高:\n 是否两层（每层面积）:\n 电梯/楼梯:\n 租金:\n 元/平/月:\n 管理费:\n 停车费:\n 看房方式（约看/出租中/空置/自用）:\n 现状经营:\n 其他要求:\n 注意事项:\n');
+			}
+			if(type=='别墅'){
+				$("#intro").val('（ ）房（ ）厅（ ）卫（ ）阳台 别墅性质（独立/联排）:\n 建筑面积:\n 套内面积:\n 朝向:\n 楼层:\n第（ ）层，共（ ）层 花园面积:\n 附送面积:\n 房屋配置（全齐或者部分）:\n 电梯/楼梯:\n 租金:\n 看房方式（约看/自住/出租）:\n 其他要求:\n 注意事项:\n');
+			}
+			if(type=='车库'){
+				$("#intro").val('建筑面积:\n 套内面积:\n 朝向:\n 楼层:\n第（ ）层，共（ ）层 商铺总高:\n 是否两层（每层面积）:\n 电梯/楼梯:\n 租金:\n 元/平/月:\n 管理费:\n 看房方式（约看/出租中/空置/自用）:\n 现状经营:\n 其他要求:\n 注意事项:\n');
+			}
+			if(type=='写字楼'){
+				$("#intro").val('（ ）房（）厅:\n 建筑面积:\n 套内面积:\n 朝向:\n 楼层:\n第（ ）层，共（ ）层 写字楼配置（全齐或者部分）:\n 电梯/楼梯:\n 租金:\n 元/平/月:\n 管理费:\n 停车费:\n 看房方式（约看/出租中/空置/自用）:\n 现状经营:\n 其他要求:\n 注意事项:\n');
+			}
+		}
+
+		if(statusValue=='出售'){
+			if(type.substr(0, 1) <= 6){
+				$("#intro").val('（ ）房（ ）厅（ ）卫（ ）阳台:\n建筑面积:\n套内面积:\n朝向:\n楼层:\n第（ ）层，共（ ）:\n电梯/楼梯:\n总价:\n税务实收/各付:\n原购价（发票价）:\n购入日期（指契税填发日期）:\n看房方式（约看/自住/出租）:\n其他要求:\n注意事项:\n');
+			}
+			if(type=='厂房/仓库'||type=='整栋厂房'){
+				$("#intro").val('建筑面积:\n 套内面积:\n 朝向:\n 楼层:\n第（ ）层，共（ ）层 总高:\n 电梯/楼梯:\n 总价:\n 税务实收/各付:\n 原购价（发票价）:\n 购入日期（指契税填发日期）:\n 管理费:\n 停车:\n 可租（月租）:\n 元/平/月:\n 看房方式（约看/出租中/空置/自用）:\n 现状经营:\n 其他要求:\n 注意事项:\n');
+			}
+			if(type=='商铺'){
+				$("#intro").val('建筑面积:\n 套内面积:\n 朝向:\n 楼层:\n第（ ）层，共（ ）层 商铺总高:\n 是否两层（每层面积）:\n 电梯/楼梯:\n 总价:\n 税务实收/各付:\n 原购价（发票价）:\n 购入日期（指契税填发日期）:\n 管理费:\n 停车费:\n 可租（月租）:\n 元/平/月:\n 看房方式（约看/出租中/空置/自用）:\n 现状经营:\n 其他要求:\n 注意事项:\n');
+			}
+			if(type=='别墅'){
+				$("#intro").val('（ ）房（ ）厅（ ）卫（ ）阳台 别墅性质（独立/联排）:\n 建筑面积:\n 套内面积:\n 朝向:\n 楼层:\n第（ ）层，共（ ）层 花园面积:\n 附送面积:\n 电梯/楼梯:\n 总价:\n 税务实收/各付:\n 原购价（发票价）:\n 购入日期（指契税填发日期）:\n 看房方式（约看/自住/出租）:\n 其他要求:\n 注意事项:\n');
+			}
+			if(type=='车库'){
+				$("#intro").val('建筑面积:\n 套内面积:\n 朝向:\n 楼层:\n第（ ）层，共（ ）层 商铺总高:\n 是否两层（每层面积）:\n 电梯/楼梯:\n 总价:\n 税务实收/各付:\n 原购价（发票价）:\n 购入日期（指契税填发日期）:\n 管理费:\n 停车:\n 可租（月租）:\n 元/平/月:\n 看房方式（约看/出租中/空置/自用）:\n 现状经营:\n 其他要求:\n 注意事项:\n');
+			}
+			if(type=='写字楼'){
+				$("#intro").val('（ ）房（）厅 建筑面积:\n 套内面积:\n 朝向:\n 楼层:\n第（ ）层，共（ ）层 写字楼配置（全齐或者部分）:\n 电梯/楼梯:\n 总价:\n 税务实收/各付:\n 原购价（发票价）:\n 购入日期（指契税填发日期）:\n 管理费:\n 停车费:\n 可租（月租）:\n 元/平/月:\n 看房方式（约看/出租中/空置/自用）:\n 现状经营:\n 其他要求:\n 注意事项:\n');
+			}
+		}
+		
+			
+
+	});
+
+	$("#type").change( function(){
+				
+		var type = $(this).val();
+		var statusValue = $("#statusSel").val();
+		
+		if(statusValue==undefined)
+			statusValue='';
+		
+		if(statusValue=='出租'){
+			if(type.substr(0, 1) <= 6){
+				$("#intro").val('（ ）房（ ）厅（ ）卫（ ）阳台\n建筑面积:\n套内面积:\n朝向:\n楼层:\n第（ ）层，共（ ）:\n房屋配置（全齐或者部分）:\n电梯/楼梯:\n租金:\n看房方式（约看/自住/出租）:\n其他要求:\n注意事项:\n');
+			}
+			if(type=='厂房/仓库'||type=='整栋厂房'){
+				$("#intro").val('建筑面积:\n 套内面积:\n 朝向:\n 楼层:\n第（ ）层，共（ ）层 总高:\n 电梯/楼梯:\n 租金:\n 元/平/月:\n 管理费:\n 看房方式（约看/出租中/空置/自用）:\n 现状经营:\n 其他要求:\n 注意事项:\n');
+			}
+			if(type=='商铺'){
+				$("#intro").val('建筑面积:\n 套内面积:\n 朝向:\n 楼层:\n第（ ）层，共（ ）层 商铺总高:\n 是否两层（每层面积）:\n 电梯/楼梯:\n 租金:\n 元/平/月:\n 管理费:\n 停车费:\n 看房方式（约看/出租中/空置/自用）:\n 现状经营:\n 其他要求:\n 注意事项:\n');
+			}
+			if(type=='别墅'){
+				$("#intro").val('（ ）房（ ）厅（ ）卫（ ）阳台 别墅性质（独立/联排）:\n 建筑面积:\n 套内面积:\n 朝向:\n 楼层:\n第（ ）层，共（ ）层 花园面积:\n 附送面积:\n 房屋配置（全齐或者部分）:\n 电梯/楼梯:\n 租金:\n 看房方式（约看/自住/出租）:\n 其他要求:\n 注意事项:\n');
+			}
+			if(type=='车库'){
+				$("#intro").val('建筑面积:\n 套内面积:\n 朝向:\n 楼层:\n第（ ）层，共（ ）层 商铺总高:\n 是否两层（每层面积）:\n 电梯/楼梯:\n 租金:\n 元/平/月:\n 管理费:\n 看房方式（约看/出租中/空置/自用）:\n 现状经营:\n 其他要求:\n 注意事项:\n');
+			}
+			if(type=='写字楼'){
+				$("#intro").val('（ ）房（）厅:\n 建筑面积:\n 套内面积:\n 朝向:\n 楼层:\n第（ ）层，共（ ）层 写字楼配置（全齐或者部分）:\n 电梯/楼梯:\n 租金:\n 元/平/月:\n 管理费:\n 停车费:\n 看房方式（约看/出租中/空置/自用）:\n 现状经营:\n 其他要求:\n 注意事项:\n');
+			}
+		}
+
+		if(statusValue=='出售'){
+			if(type.substr(0, 1) <= 6){
+				$("#intro").val('（ ）房（ ）厅（ ）卫（ ）阳台:\n建筑面积:\n套内面积:\n朝向:\n楼层:\n第（ ）层，共（ ）:\n电梯/楼梯:\n总价:\n税务实收/各付:\n原购价（发票价）:\n购入日期（指契税填发日期）:\n看房方式（约看/自住/出租）:\n其他要求:\n注意事项:\n');
+			}
+			if(type=='厂房/仓库'||type=='整栋厂房'){
+				$("#intro").val('建筑面积:\n 套内面积:\n 朝向:\n 楼层:\n第（ ）层，共（ ）层 总高:\n 电梯/楼梯:\n 总价:\n 税务实收/各付:\n 原购价（发票价）:\n 购入日期（指契税填发日期）:\n 管理费:\n 停车:\n 可租（月租）:\n 元/平/月:\n 看房方式（约看/出租中/空置/自用）:\n 现状经营:\n 其他要求:\n 注意事项:\n');
+			}
+			if(type=='商铺'){
+				$("#intro").val('建筑面积:\n 套内面积:\n 朝向:\n 楼层:\n第（ ）层，共（ ）层 商铺总高:\n 是否两层（每层面积）:\n 电梯/楼梯:\n 总价:\n 税务实收/各付:\n 原购价（发票价）:\n 购入日期（指契税填发日期）:\n 管理费:\n 停车费:\n 可租（月租）:\n 元/平/月:\n 看房方式（约看/出租中/空置/自用）:\n 现状经营:\n 其他要求:\n 注意事项:\n');
+			}
+			if(type=='别墅'){
+				$("#intro").val('（ ）房（ ）厅（ ）卫（ ）阳台 别墅性质（独立/联排）:\n 建筑面积:\n 套内面积:\n 朝向:\n 楼层:\n第（ ）层，共（ ）层 花园面积:\n 附送面积:\n 电梯/楼梯:\n 总价:\n 税务实收/各付:\n 原购价（发票价）:\n 购入日期（指契税填发日期）:\n 看房方式（约看/自住/出租）:\n 其他要求:\n 注意事项:\n');
+			}
+			if(type=='车库'){
+				$("#intro").val('建筑面积:\n 套内面积:\n 朝向:\n 楼层:\n第（ ）层，共（ ）层 商铺总高:\n 是否两层（每层面积）:\n 电梯/楼梯:\n 总价:\n 税务实收/各付:\n 原购价（发票价）:\n 购入日期（指契税填发日期）:\n 管理费:\n 停车:\n 可租（月租）:\n 元/平/月:\n 看房方式（约看/出租中/空置/自用）:\n 现状经营:\n 其他要求:\n 注意事项:\n');
+			}
+			if(type=='写字楼'){
+				$("#intro").val('（ ）房（）厅 建筑面积:\n 套内面积:\n 朝向:\n 楼层:\n第（ ）层，共（ ）层 写字楼配置（全齐或者部分）:\n 电梯/楼梯:\n 总价:\n 税务实收/各付:\n 原购价（发票价）:\n 购入日期（指契税填发日期）:\n 管理费:\n 停车费:\n 可租（月租）:\n 元/平/月:\n 看房方式（约看/出租中/空置/自用）:\n 现状经营:\n 其他要求:\n 注意事项:\n');
+			}
+		}
+	});
+
+	$('#leadsForm').validate({
+	    rules: {
+	      building_name: {
+	        required: true
+	      },
+	      area:{
+	      	number:true
+	      },
+	      total:{
+	      	number:true
+	      },
+	      lowest_price:{number:true},
+	      agent_fee:{number:true},
+	      status: {
+	        required: true
+	      }
+	    },
+		highlight: function(element) {
+		    $(element).closest('.control-group').removeClass('success').addClass('error');
+		},
+		success: function(element) {
+		    element.text('OK!').addClass('valid').closest('.control-group').removeClass('error').addClass('success');
+		}
+	});
+});
+</script>

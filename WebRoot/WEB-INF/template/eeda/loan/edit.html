@@ -1,0 +1,130 @@
+<%layout("/eeda/layout.html"){%>
+<!-- content starts -->
+
+<div>
+	<ul class="breadcrumb">
+		<li>
+			<a href="#">首页</a>
+			<span class="divider">/</span>
+		</li>
+		<li>
+			<a href="#">新增贷款客户</a>
+		</li>
+	</ul>
+</div>
+
+<div class="row-fluid sortable">
+	<div class="box span12">
+		<div class="box-header well" data-original-title>
+			<h2> <i class="icon-edit"></i>
+				贷款客户
+			</h2>
+		</div>
+		<%  var isAdminPmInU=shiro.hasAnyRole("admin,property_manager,property_internal_user");
+			var partyAtt;
+		    var isPartyNull = party!''=='';
+		    if(!isPartyNull){
+		   		partyAtt = party.attr;
+		   }
+           
+           //print(partyAtt);
+		%>
+
+		<div class="box-content">
+			<form class="form-horizontal" id='loanClientForm' name="loanClientForm" action="<% if(isAdminPmInU){ %>/loan/save<%}else{%>#<%}%>" method="post">
+				<fieldset>
+					<input id="id" name="id" type="hidden" value="${party.id!''}">
+					<legend>贷款客户资料单</legend>
+
+					<div class="control-group">
+						<label class="control-label" for="focusedInput">客户名称</label>
+						<div class="controls">
+							<input class="input-xlarge focused" id="name" name="name" type="text" value="${partyAtt['name']!''}">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">客户等级</label>
+						<div class="controls">
+						      <select id="priority" name="priority">
+								<option></option>
+								<option <%if(partyAtt['priority']!''=='1重要紧急'){%>
+									selected
+									<%}%>>1重要紧急</option>
+								<option <%if(partyAtt['priority']!''=='2重要不紧急'){%>
+									selected
+									<%}%>>2重要不紧急</option>
+								<option <%if(partyAtt['priority']!''=='3不重要紧急'){%>
+									selected
+									<%}%>>3不重要紧急</option>
+								<option <%if(partyAtt['priority']!''=='4不重要不紧急'){%>
+									selected
+									<%}%>>4不重要不紧急</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" >要求额度</label>
+						<div class="controls">
+							<input class="input-xlarge focused" id="loan_max" name="loan_max" type="text" value="${partyAtt['loan_max']!0}">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" >电话</label>
+						<div class="controls">
+							<input class="input-xlarge focused" id="mobile" name="mobile" type="text" value="${partyAtt['mobile']!''}">
+						</div>
+					</div>
+					
+					<div class="control-group">
+						<label class="control-label" >邮件地址</label>
+						<div class="controls">
+							<input class="input-xlarge focused" id="email" name="email" type="text" value="${partyAtt['email']!''}">
+						</div>
+					</div>
+
+					
+
+					<div class="form-actions">
+						<% if( isAdminPmInU || (party.creator!''=='' || userId==party.creator!'')){ %>
+						<button type="submit" class="btn btn-primary">保存</button>
+						<%}%>
+						<a href='/loan' class="btn">取消</a>
+					</div>
+
+				</fieldset>
+			</form>
+
+		</div>
+	</div>
+	<!--/span-->
+
+</div>
+<!--/row-->
+
+<!-- content ends -->
+<%}%>
+<!-- validate.min.js 1.11.1 -->
+<script src="/js/jquery.validate.min.js"></script>
+<script src="/js/jvalidate.messages_cn.js"></script>
+<script>
+	$(document).ready(function() {
+
+	
+	$('#loanClientForm').validate({
+	    rules: {
+	      client_name: {
+	        required: true
+	      }
+	    },
+		highlight: function(element) {
+		    $(element).closest('.control-group').removeClass('success').addClass('error');
+		},
+		success: function(element) {
+		    element.text('OK!').addClass('valid').closest('.control-group').removeClass('error').addClass('success');
+		}
+	});
+});
+</script>
