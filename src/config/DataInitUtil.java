@@ -1,4 +1,4 @@
-package config;
+ package config;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -9,8 +9,7 @@ import java.util.Date;
 import models.Category;
 import models.Party;
 import models.PartyAttribute;
-import models.yh.profile.Carinfo;
-import models.yh.profile.Contact;
+
 
 import com.jfinal.plugin.c3p0.C3p0Plugin;
 
@@ -511,7 +510,7 @@ public class DataInitUtil {
             stmt.executeUpdate("insert into fin_item(driver_type,code,name,type,remark) values('OWN','ZSF','住宿费','自营应付','这是住宿费');");
             stmt.executeUpdate("insert into fin_item(driver_type,code,name,type,remark) values('OWN','QTF','其它费用','自营应付','这是其它费用');");
 
-            newCustomer();
+            //newCustomer();
 
             // 仓库
             stmt.execute("insert into warehouse(warehouse_area,warehouse_name,warehouse_desc,warehouse_address,office_id,warehouse_type) values('582','源鸿广州总仓', '这是广州总仓','萝岗','4','ownWarehouse');");
@@ -659,12 +658,12 @@ public class DataInitUtil {
                     + "last_modified_stamp timestamp, approver bigint, approve_date timestamp);");
 
             // 自营车辆司机
-            stmt.execute("insert into carinfo(phone, car_no, cartype, length, driver, type, hundred_fuel_standard) values('13312345678', '粤A5687', '平板车', 18.5, '王五', '"+Carinfo.CARINFO_TYPE_OWN+"',13);");
-            stmt.execute("insert into carinfo(phone, car_no, cartype, length, driver, type, hundred_fuel_standard) values('13412345678', '粤A2341', '高栏车', 12.5, '赵六', '"+Carinfo.CARINFO_TYPE_OWN+"',13);");
+//            stmt.execute("insert into carinfo(phone, car_no, cartype, length, driver, type, hundred_fuel_standard) values('13312345678', '粤A5687', '平板车', 18.5, '王五', '"+Carinfo.CARINFO_TYPE_OWN+"',13);");
+//            stmt.execute("insert into carinfo(phone, car_no, cartype, length, driver, type, hundred_fuel_standard) values('13412345678', '粤A2341', '高栏车', 12.5, '赵六', '"+Carinfo.CARINFO_TYPE_OWN+"',13);");
             
             // 供应商司机
-            stmt.execute("insert into carinfo(phone, car_no, cartype, length, driver, type) values('13898765432', '粤A9874', '集装车', 17.5, '王五五', '"+Carinfo.CARINFO_TYPE_SP+"');");
-            stmt.execute("insert into carinfo(phone, car_no, cartype, length, driver, type) values('13998765432', '粤A1234', '挂车', 14.5, '赵六六', '"+Carinfo.CARINFO_TYPE_SP+"');");
+//            stmt.execute("insert into carinfo(phone, car_no, cartype, length, driver, type) values('13898765432', '粤A9874', '集装车', 17.5, '王五五', '"+Carinfo.CARINFO_TYPE_SP+"');");
+//            stmt.execute("insert into carinfo(phone, car_no, cartype, length, driver, type) values('13998765432', '粤A1234', '挂车', 14.5, '赵六六', '"+Carinfo.CARINFO_TYPE_SP+"');");
 
             // 发车单
             /*stmt.execute("insert into depart_order(depart_no,create_stamp,combine_type,car_no,car_type,driver_id,car_size,status) values('FC2014061000001', CURRENT_TIMESTAMP(),'DEPART','粤A876596','平板车',1,23,'新建');");
@@ -1083,79 +1082,79 @@ public class DataInitUtil {
 
     }
 
-    public static void newCustomer() {
-        Contact contact = new Contact();
-        contact.set("company_name", "珠海创诚易达信息科技有限公司").set("contact_person", "温生").set("email", "test@test.com").set("abbr", "珠海创诚易达");
-        contact.set("mobile", "12345671").set("phone", "113527229313").set("address", "香洲珠海市香洲区老香洲为农街为农市场1").set("postal_code", "5190001")
-                .set("location", "440116").save();
-        Contact contact7 = new Contact();
-        contact7.set("company_name", "珠海博兆计算机科技有限公司").set("contact_person", "温生").set("email", "test@test.com").set("abbr", "珠海博兆");
-        contact7.set("mobile", "12345671").set("phone", "113527229313").set("address", "香洲珠海市香洲区老香洲为农街为农市场1").set("postal_code", "5190001")
-                .set("location", "441900").save();
-        Contact contact2 = new Contact();
-        contact2.set("company_name", "北京制药珠海分公司").set("contact_person", "黄生").set("email", "test@test.com").set("abbr", "北京制药珠分");
-        contact2.set("mobile", "12345672").set("phone", "213527229313").set("address", "香洲珠海市香洲区老香洲为农街为农市场2").set("postal_code", "5190002")
-                .set("location", "110102").save();
-        Contact contact3 = new Contact();
-        contact3.set("company_name", "广州某某运输公司").set("contact_person", "李生").set("email", "test@test.com").set("abbr", "广某运输");;
-        contact3.set("mobile", "12345673").set("phone", "313527229313").set("address", "广州罗岗区为农街为农市场").set("postal_code", "5190003")
-                .set("location", "440116").save();// 440116
-                                                  // 广州罗岗区
-        Contact contact4 = new Contact();
-        contact4.set("company_name", "天津运输有限公司").set("contact_person", "何生").set("email", "test@test.com");
-        contact4.set("mobile", "12345674").set("phone", "413527229313").set("address", "香洲珠海市香洲区老香洲为农街为农市场4").set("postal_code", "5190004")
-                .save();
-        Contact contact5 = new Contact();
-        contact5.set("company_name", "天津佛纳甘科技有限公司").set("contact_person", "何生").set("email", "test@test.com");
-        contact5.set("mobile", "12345674").set("phone", "413527229313").set("address", "香洲珠海市香洲区老香洲为农街为农市场4").set("postal_code", "5190004")
-                .set("location", "442000").save();
-        Contact contact6 = new Contact();
-        contact6.set("company_name", "天津佛纳甘科技有限公司").set("contact_person", "何生").set("email", "test@test.com");
-        contact6.set("mobile", "12345674").set("phone", "413527229313").set("address", "香洲珠海市香洲区老香洲为农街为农市场4").set("postal_code", "5190004")
-                .set("location", "440402").save();
-        Contact contact8 = new Contact();
-        contact8.set("contact_person", "张三").set("phone", "15512345678").save();
-        Contact contact9 = new Contact();
-        contact9.set("contact_person", "李四").set("phone", "15812345678").save();
-        Contact contact10 = new Contact();
-        contact10.set("contact_person", "张三三").set("phone", "13112345678").save();
-        Contact contact11 = new Contact();
-        contact11.set("contact_person", "李四四").set("phone", "13312345678").save();
-
-        Party p1 = new Party();
-        Party p2 = new Party();
-        Party p3 = new Party();
-        Party p4 = new Party();
-        Party p5 = new Party();
-        Party p6 = new Party();
-        Party p7 = new Party();
-        Party p8 = new Party();
-        Party p9 = new Party();
-        Party p10 = new Party();
-        Party p11 = new Party();
-        Date createDate = Calendar.getInstance().getTime();
-        p1.set("contact_id", contact.getLong("id")).set("party_type", "CUSTOMER").set("create_date", createDate).set("creator", "demo")
-                .set("payment", "monthlyStatement").save();
-        p7.set("contact_id", contact7.getLong("id")).set("party_type", "CUSTOMER").set("create_date", createDate).set("creator", "demo")
-                .set("payment", "freightCollect").save();
-        p2.set("contact_id", contact2.getLong("id")).set("party_type", "CUSTOMER").set("create_date", createDate).set("creator", "demo")
-                .set("payment", "cashPayment").save();
-        p3.set("contact_id", contact3.getLong("id")).set("party_type", "SERVICE_PROVIDER").set("create_date", createDate)
-                .set("payment", "demo").save();
-        p4.set("contact_id", contact4.getLong("id")).set("party_type", "SERVICE_PROVIDER").set("create_date", createDate)
-                .set("creator", "demo").save();
-        p5.set("contact_id", contact5.getLong("id")).set("party_type", "NOTIFY_PARTY").set("create_date", createDate)
-                .set("creator", "demo").save();
-        p6.set("contact_id", contact6.getLong("id")).set("party_type", "NOTIFY_PARTY").set("create_date", createDate)
-                .set("creator", "demo").save();
-        p8.set("contact_id", contact8.getLong("id")).set("party_type", Party.PARTY_TYPE_DRIVER).set("create_date", createDate)
-                .set("creator", "demo").save();
-        p9.set("contact_id", contact9.getLong("id")).set("party_type", Party.PARTY_TYPE_DRIVER).set("create_date", createDate)
-                .set("creator", "demo").save();
-        p10.set("contact_id", contact10.getLong("id")).set("party_type", Party.PARTY_TYPE_SP_DRIVER).set("create_date", createDate)
-        		.set("creator", "demo").save();
-        p11.set("contact_id", contact11.getLong("id")).set("party_type", Party.PARTY_TYPE_SP_DRIVER).set("create_date", createDate)
-        		.set("creator", "demo").save();
-    }
+//    public static void newCustomer() {
+//        Contact contact = new Contact();
+//        contact.set("company_name", "珠海创诚易达信息科技有限公司").set("contact_person", "温生").set("email", "test@test.com").set("abbr", "珠海创诚易达");
+//        contact.set("mobile", "12345671").set("phone", "113527229313").set("address", "香洲珠海市香洲区老香洲为农街为农市场1").set("postal_code", "5190001")
+//                .set("location", "440116").save();
+//        Contact contact7 = new Contact();
+//        contact7.set("company_name", "珠海博兆计算机科技有限公司").set("contact_person", "温生").set("email", "test@test.com").set("abbr", "珠海博兆");
+//        contact7.set("mobile", "12345671").set("phone", "113527229313").set("address", "香洲珠海市香洲区老香洲为农街为农市场1").set("postal_code", "5190001")
+//                .set("location", "441900").save();
+//        Contact contact2 = new Contact();
+//        contact2.set("company_name", "北京制药珠海分公司").set("contact_person", "黄生").set("email", "test@test.com").set("abbr", "北京制药珠分");
+//        contact2.set("mobile", "12345672").set("phone", "213527229313").set("address", "香洲珠海市香洲区老香洲为农街为农市场2").set("postal_code", "5190002")
+//                .set("location", "110102").save();
+//        Contact contact3 = new Contact();
+//        contact3.set("company_name", "广州某某运输公司").set("contact_person", "李生").set("email", "test@test.com").set("abbr", "广某运输");;
+//        contact3.set("mobile", "12345673").set("phone", "313527229313").set("address", "广州罗岗区为农街为农市场").set("postal_code", "5190003")
+//                .set("location", "440116").save();// 440116
+//                                                  // 广州罗岗区
+//        Contact contact4 = new Contact();
+//        contact4.set("company_name", "天津运输有限公司").set("contact_person", "何生").set("email", "test@test.com");
+//        contact4.set("mobile", "12345674").set("phone", "413527229313").set("address", "香洲珠海市香洲区老香洲为农街为农市场4").set("postal_code", "5190004")
+//                .save();
+//        Contact contact5 = new Contact();
+//        contact5.set("company_name", "天津佛纳甘科技有限公司").set("contact_person", "何生").set("email", "test@test.com");
+//        contact5.set("mobile", "12345674").set("phone", "413527229313").set("address", "香洲珠海市香洲区老香洲为农街为农市场4").set("postal_code", "5190004")
+//                .set("location", "442000").save();
+//        Contact contact6 = new Contact();
+//        contact6.set("company_name", "天津佛纳甘科技有限公司").set("contact_person", "何生").set("email", "test@test.com");
+//        contact6.set("mobile", "12345674").set("phone", "413527229313").set("address", "香洲珠海市香洲区老香洲为农街为农市场4").set("postal_code", "5190004")
+//                .set("location", "440402").save();
+//        Contact contact8 = new Contact();
+//        contact8.set("contact_person", "张三").set("phone", "15512345678").save();
+//        Contact contact9 = new Contact();
+//        contact9.set("contact_person", "李四").set("phone", "15812345678").save();
+//        Contact contact10 = new Contact();
+//        contact10.set("contact_person", "张三三").set("phone", "13112345678").save();
+//        Contact contact11 = new Contact();
+//        contact11.set("contact_person", "李四四").set("phone", "13312345678").save();
+//
+//        Party p1 = new Party();
+//        Party p2 = new Party();
+//        Party p3 = new Party();
+//        Party p4 = new Party();
+//        Party p5 = new Party();
+//        Party p6 = new Party();
+//        Party p7 = new Party();
+//        Party p8 = new Party();
+//        Party p9 = new Party();
+//        Party p10 = new Party();
+//        Party p11 = new Party();
+//        Date createDate = Calendar.getInstance().getTime();
+//        p1.set("contact_id", contact.getLong("id")).set("party_type", "CUSTOMER").set("create_date", createDate).set("creator", "demo")
+//                .set("payment", "monthlyStatement").save();
+//        p7.set("contact_id", contact7.getLong("id")).set("party_type", "CUSTOMER").set("create_date", createDate).set("creator", "demo")
+//                .set("payment", "freightCollect").save();
+//        p2.set("contact_id", contact2.getLong("id")).set("party_type", "CUSTOMER").set("create_date", createDate).set("creator", "demo")
+//                .set("payment", "cashPayment").save();
+//        p3.set("contact_id", contact3.getLong("id")).set("party_type", "SERVICE_PROVIDER").set("create_date", createDate)
+//                .set("payment", "demo").save();
+//        p4.set("contact_id", contact4.getLong("id")).set("party_type", "SERVICE_PROVIDER").set("create_date", createDate)
+//                .set("creator", "demo").save();
+//        p5.set("contact_id", contact5.getLong("id")).set("party_type", "NOTIFY_PARTY").set("create_date", createDate)
+//                .set("creator", "demo").save();
+//        p6.set("contact_id", contact6.getLong("id")).set("party_type", "NOTIFY_PARTY").set("create_date", createDate)
+//                .set("creator", "demo").save();
+//        p8.set("contact_id", contact8.getLong("id")).set("party_type", Party.PARTY_TYPE_DRIVER).set("create_date", createDate)
+//                .set("creator", "demo").save();
+//        p9.set("contact_id", contact9.getLong("id")).set("party_type", Party.PARTY_TYPE_DRIVER).set("create_date", createDate)
+//                .set("creator", "demo").save();
+//        p10.set("contact_id", contact10.getLong("id")).set("party_type", Party.PARTY_TYPE_SP_DRIVER).set("create_date", createDate)
+//        		.set("creator", "demo").save();
+//        p11.set("contact_id", contact11.getLong("id")).set("party_type", Party.PARTY_TYPE_SP_DRIVER).set("create_date", createDate)
+//        		.set("creator", "demo").save();
+//    }
     
 }
